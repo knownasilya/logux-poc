@@ -16,11 +16,10 @@ type Action = { type: string } & Record<string, unknown>;
 
 export function sync(action: string, { defaultValue, key }: Options = {}): any {
   return function (target: Context, name: string) {
-    const storageKey = `_${name}`;
+    const storageKey = `#${name}`;
     return {
       set(this: Context, value: unknown) {
         setValue(this[storageKey] as TrackedStorage<unknown>, value);
-        return value;
       },
       get(this: { core: Core } & Record<string, unknown>) {
         if (!this[storageKey]) {
@@ -31,7 +30,7 @@ export function sync(action: string, { defaultValue, key }: Options = {}): any {
           });
         }
 
-        return getValue(this[`_${name}`] as TrackedStorage<unknown>);
+        return getValue(this[storageKey] as TrackedStorage<unknown>);
       },
     };
   };

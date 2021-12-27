@@ -5,7 +5,8 @@
     "dev": "vite",
     "ssr": "node server",
     "build": "tsc && vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "logux": "node logux.server.mjs"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
@@ -17,6 +18,7 @@
     "@glimmerx/modifier": "^0.6.6",
     "@glimmerx/service": "^0.6.6",
     "@glimmerx/ssr": "^0.6.6",
+    "@lifeart/tiny-router": "^0.0.8",
     "@logux/client": "^0.14.4",
     "express": "^4.17.1",
     "parse-static-imports": "^1.1.0",

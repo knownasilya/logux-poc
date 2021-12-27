@@ -1,10 +1,4 @@
-import {
-  createStorage,
-  getValue,
-  setValue,
-  TrackedStorage,
-} from '../_private/storage';
-
+import { tracked } from '@glimmer/tracking';
 import Core from '../services/core';
 
 interface Options {
@@ -14,23 +8,29 @@ interface Options {
 type Context = { core: Core } & Record<string, unknown>;
 type Action = { type: string } & Record<string, unknown>;
 
+class Store {
+  @tracked value: any = undefined;
+}
+
 export function sync(action: string, { defaultValue, key }: Options = {}): any {
   return function (target: Context, name: string) {
-    const storageKey = `#${name}`;
+    const storageKey = `_${name}`;
+    const internal = new Store();
+
     return {
       set(this: Context, value: unknown) {
-        setValue(this[storageKey] as TrackedStorage<unknown>, value);
+        internal.value = value;
       },
       get(this: { core: Core } & Record<string, unknown>) {
-        if (!this[storageKey]) {
-          this[storageKey] = createStorage(defaultValue);
+        if (internal.value === undefined) {
+          internal.value = defaultValue;
 
           this.core.client.type(action, (action: Action, _meta: unknown) => {
             this[name] = action[key ? key : 'value'];
           });
         }
 
-        return getValue(this[storageKey] as TrackedStorage<unknown>);
+        return internal.value;
       },
     };
   };

@@ -1323,6 +1323,11 @@
   resolved "https://registry.npmjs.org/@handlebars/parser/-/parser-2.0.0.tgz"
   integrity sha512-EP9uEDZv/L5Qh9IWuMUGJRfwhXJ4h1dqKTT4/3+tY0eu7sPis7xh23j61SYUnNF4vqCQvvUXpDo9Bh/+q1zASA==
 
+"@lifeart/tiny-router@^0.0.8":
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/@lifeart/tiny-router/-/tiny-router-0.0.8.tgz#4f7b7eca34a83dd601aeb06ef52022cce6689b19"
+  integrity sha512-n/iYAm4D7uSk7jEpuk4SKIAVBiW9OndfDHG5qmTafMecMt4c1V6XuaA4MvaX9JbX5qLcULV9dULFg4utofcEdg==
+
 "@logux/actions@^0.2.1":
   version "0.2.1"
   resolved "https://registry.npmjs.org/@logux/actions/-/actions-0.2.1.tgz"

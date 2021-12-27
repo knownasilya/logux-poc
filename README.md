@@ -1,3 +1,3 @@
 # logux poc
 
-Start `node logux.server.mjs` and `yarn dev`. Open `localhost:3000`.
+Start `yarn logux` and `yarn dev`. Open `localhost:3000`.

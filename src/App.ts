@@ -1,45 +1,40 @@
-import Component, { hbs } from '@glimmerx/component';
+import Component, { hbs, tracked } from '@glimmerx/component';
 import { on, action } from '@glimmerx/modifier';
-import { service } from '@glimmerx/service';
-import { sync } from './decorators/sync';
+import { Router, Page, RouteParams } from '@lifeart/tiny-router';
+import Counter from './Counter';
 
-import Core from './services/core';
+// Types for :params in route templates
+interface Routes {
+  home: void;
+  post: 'postId';
+}
 
-import Test from './Test';
+export const router = new Router({
+  home: '/',
+  post: '/posts/:postId',
+});
+
+// async data loading per-route
+router.addResolver('post', async function (page: RouteParams) {
+  debugger;
+
+  return { ok: true };
+});
+
+await router.mount('/posts/42');
 
 export default class App extends Component {
-  @sync('INC', { defaultValue: 0 }) counter!: number;
-  @service('core') core!: Core;
+  @tracked hidden = false;
 
   static template = hbs`
     <h1>Test</h1>
 
-    <button type='button' {{on 'click' this.increase}}>Increase</button>
-    <button type='button' {{on 'click' this.increaseLocal}}>Increase Local</button>
+    <button type='button' {{on 'click' this.toggleHide}}>Toggle Counter</button>
 
-    <hr/>
-    {{this.counter}}
+    {{#if this.hidden}}
+      <Counter/>
+    {{/if}}
   `;
 
-  constructor(owner: object, args: {}) {
-    super(owner, args);
-
-    this.core.subscribeChannel('counter', this);
-
-    // this.core.client.type(
-    //   'INC',
-    //   (action: { type: 'INC'; value: number }, _meta: unknown) => {
-    //     debugger;
-    //     this.counter = action.value;
-    //   }
-    // );
-  }
-
-  increase = () =>
-    this.core.client.sync({ type: 'INC', value: this.counter + 1 });
-  increaseLocal = () =>
-    this.core.client.log.add(
-      { type: 'INC', value: this.counter + 1 },
-      { tab: this.core.client.clientId }
-    );
+  toggleHide = () => (this.hidden = !this.hidden);
 }

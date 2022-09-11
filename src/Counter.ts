@@ -1,17 +1,14 @@
 import Component, { hbs, tracked } from '@glimmerx/component';
-import { on, action } from '@glimmerx/modifier';
+// @ts-ignore
+import { on } from '@glimmerx/modifier';
 import { service } from '@glimmerx/service';
-import { sync } from './decorators/sync';
 import Core from './services/core';
 import './counter.css';
-
-import Test from './Test';
 
 export default class Counter extends Component {
   @service('core') core!: Core;
 
-  @sync('INC', { defaultValue: 0 }) counter!: number;
-  // @tracked counter = 0;
+  @tracked counter = 0;
 
   static template = hbs`
     <div class="counter">
@@ -20,6 +17,9 @@ export default class Counter extends Component {
 
         <hr/>
         {{this.counter}}
+        <div>
+          post: {{@data.postId}}
+        </div>
     </div>
   `;
 
@@ -28,12 +28,12 @@ export default class Counter extends Component {
 
     this.core.subscribeChannel('counter', this);
 
-    // this.core.client.type(
-    //   'INC',
-    //   (action: { type: 'INC'; value: number }, _meta: unknown) => {
-    //     this.counter = action.value;
-    //   }
-    // );
+    this.core.client.type(
+      'INC',
+      (action: { type: 'INC'; value: number }, _meta: unknown) => {
+        this.counter = action.value;
+      }
+    );
   }
 
   increase = () =>

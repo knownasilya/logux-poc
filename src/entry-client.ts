@@ -8,7 +8,7 @@ let userId = location.search;
 let token =
   document?.querySelector<HTMLMetaElement>('meta[name=token]')?.content;
 
-document.addEventListener(
+document?.addEventListener(
   'DOMContentLoaded',
   () => {
     const element = document.getElementById('app');

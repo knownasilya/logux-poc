@@ -1,7 +1,7 @@
 import { renderToString } from '@glimmerx/ssr';
 
 // @ts-ignore
-// globalThis[Symbol.for('GLIMMER_VALIDATOR_REGISTRATION')] = false;
+globalThis[Symbol.for('GLIMMER_VALIDATOR_REGISTRATION')] = false;
 import App from './App';
 
 export async function render(

@@ -25,14 +25,12 @@ export default class Core {
 
   subscribeChannel(channel: string, component?: object) {
     this.client.sync(loguxSubscribe({ channel })).then(() => {
-      debugger;
       console.log('subscribed');
     });
 
     if (component) {
       registerDestructor(component, () => {
         this.client.sync(loguxUnsubscribe({ channel })).then(() => {
-          debugger;
           console.log('unsubscribed');
         });
       });

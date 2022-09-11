@@ -13,23 +13,24 @@ class Store {
 }
 
 export function sync(action: string, { defaultValue, key }: Options = {}): any {
-  return function (target: Context, name: string) {
-    const storageKey = `_${name}`;
+  return function (_target: Context, name: string) {
     const internal = new Store();
 
     return {
       set(this: Context, value: unknown) {
         internal.value = value;
+        // internal.value;
       },
       get(this: { core: Core } & Record<string, unknown>) {
         if (internal.value === undefined) {
           internal.value = defaultValue;
 
           this.core.client.type(action, (action: Action, _meta: unknown) => {
+            debugger;
             this[name] = action[key ? key : 'value'];
           });
         }
-
+        debugger;
         return internal.value;
       },
     };

@@ -12,7 +12,11 @@ async function createServer() {
   // If you want to use Vite's own HTML serving logic (using Vite as
   // a development middleware), using 'html' instead.
   const vite = await createViteServer({
-    server: { middlewareMode: 'ssr' },
+    server: { middlewareMode: true },
+    appType: 'custom',
+    optimizeDeps: {
+      force: true,
+    },
   });
   // use vite's connect instance as middleware
   app.use(vite.middlewares);

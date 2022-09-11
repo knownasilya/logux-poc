@@ -1,15 +1,15 @@
 import Component, { tracked, hbs } from '@glimmerx/component';
-import { helper } from '@glimmerx/helper';
-import { on, action } from '@glimmerx/modifier';
+// import { helper } from '@glimmerx/helper';
+import { action } from '@glimmerx/modifier';
 
-const greet = helper(function (
-  [name]: [string],
-  { greeting }: { greeting: string }
-) {
-  return `Helper: ${greeting || 'Hey there'} ${name}!`;
-});
+// const greet = helper(function (
+//   [name]: [string],
+//   { greeting }: { greeting: string }
+// ) {
+//   return `Helper: ${greeting || 'Hey there'} ${name}!`;
+// });
 
-const TemplateOnlyComponent = hbs`<h2>I am rendered by a template only component: {{@name}}</h2>`;
+// const TemplateOnlyComponent = hbs`<h2>I am rendered by a template only component: {{@name}}</h2>`;
 
 class MyComponent extends Component {
   static template = hbs`
